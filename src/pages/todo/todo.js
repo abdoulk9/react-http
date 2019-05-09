@@ -2,13 +2,15 @@ import React from 'react';
 
 
 
-function Todo(){
+function Todo() {
 
-      
-    return(
+
+    return (
         <div>
             <h1>Liste des tâches</h1>
         </div>
     );
 }
+
+export default Todo
 

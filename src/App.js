@@ -1,24 +1,27 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {BowserRouter as router, Switch, Route, Link} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import Home from './pages/home/home';
+import Todo from './pages/todo/todo';
 
 function App() {
   return (
-        <Router>
-          <div>
-            <ul>
-              <li>
-                <Link to="/todo">Liste des tâches</Link>
-              </li>
-            </ul>
-          </div>
-          <switch>
-            <Route exactly pattern="/todo" component={} />
-            <Route component={}/>
-          </switch>
+    <Router>
+      <div>
+        <ul>
+          <li>
+            <Link to="/todo">Liste des tâches</Link>
+           
+          </li>
+        </ul>
+      </div>
+      <Switch>
+        <Route exact  path="/todo" component={Todo} />
+        <Route component={Home} />
+      </Switch>
 
-        </Router>
+    </Router>
     // <div className="App">
     //   <header className="App-header">
     //     <img src={logo} className="App-logo" alt="logo" />
