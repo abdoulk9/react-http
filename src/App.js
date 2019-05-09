@@ -8,21 +8,25 @@ import Todo from './pages/todo/todo';
 function App() {
   return (
     <Router>
+      <div className="col-8">
       <div>
-        <ul>
-          <li>
-            <Link to="/">Accueil</Link>
+      {/* nav-pills est une specialisation de nav */}
+      {/* nav-fill: repartition  egales des intitulés sur la pages */}
+        <ul className=" nav nav-pills nav-fill"> 
+          <li className="nav-item">
+            {/* nav-link:pour la navigation l'ajout de active permet l'enrobage avec fond en couleur */}
+            <Link to="/" className="nav-link active">Accueil</Link>
           </li>
-          <li>
-            <Link to="/todo">Liste des tâches</Link>
+          <li className="nav-item">
+            <Link  className ="nav-link" to="/todo">Liste des tâches</Link>
            
           </li>
         </ul>
       </div>
+      </div>
       <Switch>
       <Route  exact path="/" component={Home} />
         <Route exact  path="/todo" component={Todo} />
-        
       </Switch>
 
     </Router>
