@@ -1,5 +1,7 @@
 import React from 'react';
 
+const URL = 'https://jsonplaceholder.typicode.com/todos';
+
 
 
 function Todo() {

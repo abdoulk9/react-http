@@ -11,14 +11,18 @@ function App() {
       <div>
         <ul>
           <li>
+            <Link to="/">Accueil</Link>
+          </li>
+          <li>
             <Link to="/todo">Liste des tâches</Link>
            
           </li>
         </ul>
       </div>
       <Switch>
+      <Route  exact path="/" component={Home} />
         <Route exact  path="/todo" component={Todo} />
-        <Route component={Home} />
+        
       </Switch>
 
     </Router>
