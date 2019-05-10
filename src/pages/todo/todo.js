@@ -42,7 +42,8 @@ function TodoList(props) {
 class Todo extends React.Component {
 
     state = {
-        todoList: []
+        todoList: [],
+        nbreOfPages: 0
     }
 
     //debut de page
@@ -51,7 +52,7 @@ class Todo extends React.Component {
     //Nbre d'element par page
     nberOfItemPerPage = 10;
 
-    nbreOfPages;
+
 
     //Apple asynchrone avec la biblio axios
     constructor(props) {
@@ -60,11 +61,16 @@ class Todo extends React.Component {
         Axios.get(URL).then(
             (response) => {
                 console.log(response.data);
+
                 //recuperation des données dans un tableau
                 //Avec this.setState
-                this.setState({ todoList: response.data });
-                this.nbreOfPages = Math.ceil(response.data.length /
-                    this.nberOfItemPerPage);
+                //Initilaisation de state
+                let state = {
+                    todoList: response.data,
+                    nbreOfPages: Math.ceil(response.data.length /
+                        this.nberOfItemPerPage)
+                }
+                this.setState(state);
             }
         );
         //this.props.location.search: Permet de recuperer la clef et la valeur de notre 
@@ -79,11 +85,35 @@ class Todo extends React.Component {
 
                 <TodoList data={this.state.todoList.slice(
                     (this.currentPage - 1) * this.nberOfItemPerPage,
-                    this.currentPage * this.nberOfItemPerPage)} />
+                    this.currentPage * this.nberOfItemPerPage)}
+                />
+
+                <Pagination nbreOfPages={this.state.nbreOfPages} />
             </div>
         );
     }
 
 }
+
+//Fonction pour l'affichage des bottons avec numero des pages
+function Pagination(props) {
+    let pages = new Array(props.nbreOfPages);
+
+    const buttons = pages.map(
+        (item, index) => {
+            return(
+            <li key={index} className="page-item">
+                <a className="page-link">{index + 1}</a>
+            </li>
+        );
+}
+    );
+
+    console.log(buttons);
+return (
+    <ul className="pagination"></ul>
+);
+ }
+
 export default Todo
 
