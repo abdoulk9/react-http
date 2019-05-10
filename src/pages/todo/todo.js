@@ -47,7 +47,7 @@ class Todo extends React.Component {
     }
 
     //debut de page
-    correntPage = 1;
+    currentPage = 1;
 
     //Nbre d'element par page
     nberOfItemPerPage = 10;
@@ -76,7 +76,7 @@ class Todo extends React.Component {
         //this.props.location.search: Permet de recuperer la clef et la valeur de notre 
         // chaine de catarcter traiter par queryString.parse(); exemple: /page=5(clef=page/ valeur=5)
         let values = queryString.parse(this.props.location.search);
-        this.currentPage = values.pages || 1;
+        this.currentPage = values.page || 1;
     }
     render() {
         return (
@@ -88,7 +88,9 @@ class Todo extends React.Component {
                     this.currentPage * this.nberOfItemPerPage)}
                 />
 
-                <Pagination nbreOfPages={this.state.nbreOfPages} />
+                <Pagination nbreOfPages={this.state.nbreOfPages}
+                    //Si on est sur la page courante
+                    currentPage={this.currentPage} />
             </div>
         );
     }
@@ -97,23 +99,66 @@ class Todo extends React.Component {
 
 //Fonction pour l'affichage des bottons avec numero des pages
 function Pagination(props) {
-    let pages = new Array(props.nbreOfPages);
+    //fill() permet de remplir lz tableau 
+    let pages = Array(props.nbreOfPages).fill(0);
 
     const buttons = pages.map(
         (item, index) => {
-            return(
-            <li key={index} className="page-item">
-                <a className="page-link">{index + 1}</a>
-            </li>
-        );
-}
+
+            let pageNumber = index + 1;
+
+            //  laisser un espace après item et les double cote pour la concatenation
+            let pageClasses = "page-item ";
+            if (props.currentPage == pageNumber) {
+                pageClasses += "active";
+            }
+            return (
+                <li key={index} className={pageClasses}>
+                     {/* //Affiche la page courante avec  href={"/todo?page=" + pageNumber} */}
+                    <a className="page-link" href={"/todo?page=" + pageNumber}> {pageNumber}
+                    </a>
+                </li>
+            );
+        }
+    );
+   
+
+       //Ternaire
+     const nextLink = "todo?page=" + (
+     props.currentPage == props.nbreOfPages ?
+     props.currentPage: parseInt(props.currentPage)  + 1);
+
+    const nextButton = (
+        <li className='page-item'>
+        <a className="page-link"
+       
+        href={nextLink} >suivant</a>
+        </li>
     );
 
+    //Constante ternaire
+    const previousLink = "todo?page=" + (
+        props.currentPage == 1 ?
+        props.currentPage: parseInt(props.currentPage)  - 1);
+
+    //Constante pour le bouton previous
+    const previousButton = (
+          <li className='page-item'>
+          <a className='page-link' href={previousLink}>Precedent</a>
+          </li>
+    );
+
+
     console.log(buttons);
-return (
-    <ul className="pagination"></ul>
-);
- }
+    return (
+           //defi
+        <ul className= "pagination pagination-sm flex-sm-wrap">
+           {previousButton}
+            {buttons}
+            {nextButton}
+            </ul>
+    );
+}
 
 export default Todo
 
