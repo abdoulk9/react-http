@@ -8,7 +8,9 @@ function TodoList(props) {
     const tableRows = props.data.map(
         (task) => {
             return (
-                <tr>
+                // identification unique de chaque tr avec id
+                <tr key={task.id}>   
+                    <td>{task.id}</td>
                     <td>{task.title}</td>
                     <td>{task.complited ? 'OUI' : 'NON'}</td>
                 </tr>
@@ -21,6 +23,7 @@ function TodoList(props) {
         <table className="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <th>id</th>
                     <th>tâche</th>
                     <th>Fait</th>
                 </tr>
@@ -53,6 +56,7 @@ class Todo extends React.Component {
                 this.setState({ todoList: response.data });
             }
         );
+
     }
     render() {
         return (

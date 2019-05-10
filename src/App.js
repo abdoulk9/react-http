@@ -8,7 +8,7 @@ import Todo from './pages/todo/todo';
 function App() {
   return (
     <Router>
-      <div className="col-8">
+      <div className="col-8"  style= {{backgroungColor: "#FF0000"}}>
       <div>
       {/* nav-pills est une specialisation de nav */}
       {/* nav-fill: repartition  egales des intitulés sur la pages */}
